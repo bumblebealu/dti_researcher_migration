@@ -32,13 +32,13 @@ papers_per_year = df['year'].value_counts().sort_index()
 # change index of papers_per_year to integers
 papers_per_year.index = papers_per_year.index.astype(int)
 
-popt, pcov = curve_fit(func, papers_per_year.index[:-1], papers_per_year[:-1])
+popt, pcov = curve_fit(func, papers_per_year.index[:-2], papers_per_year[:-2])
 
 if add_sidebar == "Exponential Fit":
     # plot papers per year and the fitted function
-    plt.scatter(papers_per_year.index[:-1], papers_per_year[:-1], label="y = b*2^(a(x-2000))"+"\na = " + str(popt[0]) + "\nb = " + str(popt[1]))
-    plt.plot(papers_per_year.index[:-1], func(papers_per_year.index[:-1], *popt), 'r-', label='Fit')
-    plt.scatter(papers_per_year.index[:-1],papers_per_year[:-1],color = "b", label = "Data")
+    plt.scatter(papers_per_year.index[:-2], papers_per_year[:-2], label="y = b*2^(a(x-1992))"+"\na = " + str(popt[0]) + "\nb = " + str(popt[1]))
+    plt.plot(papers_per_year.index[:-2], func(papers_per_year.index[:-2], *popt), 'r-', label='Fit')
+    plt.scatter(papers_per_year.index[:-2],papers_per_year[:-2],color = "b", label = "Data")
     # add text to the legend of the graph
     
     print("y = b*2^(a(x-1992))")
