@@ -14,7 +14,7 @@ st.bar_chart(df["year"].value_counts().sort_index())
 # display the above plot in the streamlit app
 
 
-# fit papers per year to a function of form 2^(a(x-2000)) from 2000 to 2006
+# fit papers per year to a function of form 2^(a(x-1992)) from 2000 to 2006
 from scipy.optimize import curve_fit
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,12 +29,12 @@ papers_per_year = df['year'].value_counts().sort_index()
 # change index of papers_per_year to integers
 papers_per_year.index = papers_per_year.index.astype(int)
 
-popt, pcov = curve_fit(func, papers_per_year.index[:17], papers_per_year[:17])
+popt, pcov = curve_fit(func, papers_per_year.index[:-1], papers_per_year[:-1])
 
 # plot papers per year and the fitted function
-plt.scatter(papers_per_year.index[:17], papers_per_year[:17], label="y = b*2^(a(x-2000))"+"\na = " + str(popt[0]) + "\nb = " + str(popt[1]))
-plt.plot(papers_per_year.index[:17], func(papers_per_year.index[:17], *popt), 'r-', label='Fit')
-plt.scatter(papers_per_year.index[:17],papers_per_year[:17],color = "b", label = "Data")
+plt.scatter(papers_per_year.index[:-1], papers_per_year[:-1], label="y = b*2^(a(x-2000))"+"\na = " + str(popt[0]) + "\nb = " + str(popt[1]))
+plt.plot(papers_per_year.index[:-1], func(papers_per_year.index[:-1], *popt), 'r-', label='Fit')
+plt.scatter(papers_per_year.index[:-1],papers_per_year[:-1],color = "b", label = "Data")
 # add text to the legend of the graph
 
 print("y = b*2^(a(x-1992))")
