@@ -4,7 +4,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("Doubling Time Visualization")
 
 
-df = pd.read_csv("reduced.csv")
+df = pd.read_csv("astroph.csv")
 
 df["year"] = df["versions"].str[-20:-16]
 
