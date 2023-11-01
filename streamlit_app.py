@@ -6,6 +6,8 @@ st.title("Doubling Time Visualization")
 
 df = pd.read_csv("astroph.csv")
 
+st.dataframe(df.head(20))
+
 df["year"] = df["versions"].str[-20:-16]
 
 add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit"))
