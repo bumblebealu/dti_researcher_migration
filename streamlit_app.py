@@ -57,5 +57,4 @@ if add_sidebar == "Exponential Fit":
     #plt.savefig('doubling.png')
 
 if add_sidebar == "Top Authors":
-    
-    st.bar_chart(df["authors"][0].value_counts().head(20))
+    st.bar_chart(df["submitter"][0].value_counts().head(20))
