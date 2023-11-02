@@ -10,7 +10,7 @@ if st.toggle("Show Data"):
 
 df["year"] = df["versions"].str[-20:-16]
 
-add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit"))
+add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors"))
 # make a barplot of the year column based on freqeuncy of each year sorted by year
 if add_sidebar == "Barchart":
     st.bar_chart(df["year"].value_counts().sort_index())
@@ -55,3 +55,7 @@ if add_sidebar == "Exponential Fit":
     plt.legend()
     st.pyplot()
     #plt.savefig('doubling.png')
+
+if add_sidebar == "Top Authors":
+    
+    st.bar_chart(df["authors"][0].value_counts().head(20))
