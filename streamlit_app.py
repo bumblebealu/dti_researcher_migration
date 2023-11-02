@@ -4,7 +4,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("Doubling Time Visualization")
 
 
-df = pd.read_csv("astroph.csv")
+df = pd.read_csv("reduce.csv")
 
 st.dataframe(df.head(20))
 
