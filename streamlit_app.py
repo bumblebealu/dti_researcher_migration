@@ -60,4 +60,4 @@ if add_sidebar == "Exponential Fit":
 
 if add_sidebar == "Top Authors":
     st.write("Top Authors")
-    st.bar_chart(df["submitter"].value_counts().sort_values(ascending=False).head(20))
+    st.bar_chart(df["submitter"].value_counts().sort_values(ascending=False).head(20).sort_values(ascending=False))
