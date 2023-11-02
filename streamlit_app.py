@@ -5,9 +5,8 @@ st.title("Doubling Time Visualization")
 
 
 df = pd.read_csv("reduced.csv")
-st.button("Show Data")
-
-st.dataframe(df.head(20))
+if st.button("Show Data"):
+    st.dataframe(df.head(20))
 
 df["year"] = df["versions"].str[-20:-16]
 
