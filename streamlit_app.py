@@ -62,5 +62,6 @@ if add_sidebar == "Top Authors":
     st.write("Top Authors")
     top_authors = df["submitter"].value_counts().sort_values(ascending=False).head(20)
     # sort top_authors by number of papers submitted
-    sort_df = df.sort_values(by=['counts'], ascending=False)
+    top_authors = top_authors.sort_values(ascending=False)
+    st.write(top_authors)
     st.bar_chart(top_authors)
