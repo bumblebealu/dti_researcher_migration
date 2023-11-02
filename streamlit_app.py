@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 st.set_option('deprecation.showPyplotGlobalUse', False)
-st.title("Doubling Time Visualization")
+st.title("Arxiv Dashboard")
 
 
 df = pd.read_csv("reduced.csv")
@@ -13,6 +13,7 @@ df["year"] = df["versions"].str[-20:-16]
 add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors"))
 # make a barplot of the year column based on freqeuncy of each year sorted by year
 if add_sidebar == "Barchart":
+    st.write("Paper Frequency by Year")
     st.bar_chart(df["year"].value_counts().sort_index())
 # display the above plot in the streamlit app
 
@@ -37,6 +38,7 @@ papers_per_year.index = papers_per_year.index.astype(int)
 popt, pcov = curve_fit(func, papers_per_year.index[:-2], papers_per_year[:-2])
 
 if add_sidebar == "Exponential Fit":
+    st.write("Doubling Time")
     # plot papers per year and the fitted function
     plt.scatter(papers_per_year.index[:-2], papers_per_year[:-2], label="y = b*2^(a(x-1992))"+"\na = " + str(popt[0]) + "\nb = " + str(popt[1]))
     plt.plot(papers_per_year.index[:-2], func(papers_per_year.index[:-2], *popt), 'r-', label='Fit')
@@ -57,4 +59,5 @@ if add_sidebar == "Exponential Fit":
     #plt.savefig('doubling.png')
 
 if add_sidebar == "Top Authors":
-    st.bar_chart(df["submitter"].value_counts().sort_values(ascending=False).head(20),title="Top Authors")
+    st.write("Top Authors")
+    st.bar_chart(df["submitter"].value_counts().sort_values(ascending=False).head(20))
