@@ -11,7 +11,7 @@ if st.toggle("Paper Search"):
     # search for papers by title
     search = st.text_input("Search Papers by Title")
     # display the papers that match the search
-    st.write(df[df["title"].str.contains(search,case=False)][["title","abstract","submitter"]].head(20))
+    st.write(df[df["title"].str.contains(search,case=False)].head(20))
 
 df["year"] = df["versions"].str[-20:-16]
 df["papers"] = 1
@@ -94,10 +94,3 @@ if add_sidebar == "Abstract Lengths":
     plt.hist(df["abstract_length"],bins = 100)
     st.pyplot()
     #st.write(df["abstract_length"].describe())
-
-if add_sidebar == "Search Papers":
-    st.write("Search Papers")
-    # search for papers by title
-    search = st.text_input("Search Papers by Title")
-    # display the papers that match the search
-    st.write(df[df["title"].str.contains(search,case=False)][["title","abstract","submitter"]].head(20))
