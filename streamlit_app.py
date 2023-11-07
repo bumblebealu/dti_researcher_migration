@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import altair as alt
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("Arxiv Dashboard")
 
