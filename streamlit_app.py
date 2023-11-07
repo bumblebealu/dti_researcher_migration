@@ -83,7 +83,6 @@ if add_sidebar == "Top Authors":
     st.bar_chart(top_authors)
 
 if add_sidebar == "Abstract Lengths":
-    st.write("Abstract Lengths")
     # get the length of each abstract
     df["abstract_length"] = df["abstract"].str.len()
     # plot the distribution of abstract lengths
