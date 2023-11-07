@@ -12,7 +12,7 @@ if st.toggle("Show Data"):
 df["year"] = df["versions"].str[-20:-16]
 df["papers"] = 1
 
-add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors","Abstract Lengths"))
+add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors","Abstract Lengths","Search Papers""))
 # make a barplot of the year column based on freqeuncy of each year sorted by year
 if add_sidebar == "Barchart":
     tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
@@ -90,3 +90,10 @@ if add_sidebar == "Abstract Lengths":
     plt.hist(df["abstract_length"],bins = 100)
     st.pyplot()
     #st.write(df["abstract_length"].describe())
+
+if add_sidebar == "Search Papers":
+    st.write("Search Papers")
+    # search for papers by title
+    search = st.text_input("Search Papers by Title")
+    # display the papers that match the search
+    st.write(df[df["title"].str.contains(search,case=False)][["title","abstract","submitter"]].head(20))
