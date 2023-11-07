@@ -10,6 +10,7 @@ if st.toggle("Show Data"):
     st.dataframe(df.head(20))
 
 df["year"] = df["versions"].str[-20:-16]
+df["papers"] = 1
 
 add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors"))
 # make a barplot of the year column based on freqeuncy of each year sorted by year
