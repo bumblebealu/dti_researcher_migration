@@ -1,4 +1,4 @@
-lsimport pandas as pd
+import pandas as pd
 import streamlit as st
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("Arxiv Dashboard")
