@@ -13,6 +13,10 @@ if st.toggle("Paper Search"):
     # display the papers that match the search
     st.write(df[df["title"].str.contains(search,case=False)].head(20))
 
+if st.toggle("Add Filters"):
+    search = st.text_input("Must Include")
+    df = df[df["title"].str.contains(search,case=False)]
+
 df["year"] = df["versions"].str[-20:-16]
 df["papers"] = 1
 
