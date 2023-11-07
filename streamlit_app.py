@@ -6,13 +6,17 @@ st.title("Arxiv Dashboard")
 
 
 df = pd.read_csv("reduced.csv")
-if st.toggle("Show Data"):
-    st.dataframe(df.head(20))
+if st.toggle("Paper Search"):
+    st.write("Search Papers")
+    # search for papers by title
+    search = st.text_input("Search Papers by Title")
+    # display the papers that match the search
+    st.write(df[df["title"].str.contains(search,case=False)][["title","abstract","submitter"]].head(20))
 
 df["year"] = df["versions"].str[-20:-16]
 df["papers"] = 1
 
-add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors","Abstract Lengths","Search Papers"))
+add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors","Abstract Lengths"))
 # make a barplot of the year column based on freqeuncy of each year sorted by year
 if add_sidebar == "Barchart":
     tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
