@@ -88,6 +88,6 @@ if add_sidebar == "Abstract Lengths":
     df["abstract_length"] = df["abstract"].str.len()
     # plot the distribution of abstract lengths
     st.write("Distribution of Abstract Lengths")
-    plt.hist(df["abstract_length"],bins = 10)
+    plt.hist(df["abstract_length"],bins = 100)
     st.pyplot()
     #st.write(df["abstract_length"].describe())
