@@ -23,11 +23,12 @@ if add_sidebar == "Barchart":
         y='papers',
         color='categories:N',
     )
-    # with tab1:
-    st.altair_chart(chart, theme=None, use_container_width=True)
-    # with tab2:
-    #     st.write("Paper Frequency by Year")
-    #     st.bar_chart(df["year"].value_counts().sort_index())
+    with tab1:
+        st.write("Paper Frequency by Year")
+        st.bar_chart(df["year"].value_counts().sort_index())
+    with tab2:
+        st.altair_chart(chart, theme=None, use_container_width=True)
+    
     
 # display the above plot in the streamlit app
 
