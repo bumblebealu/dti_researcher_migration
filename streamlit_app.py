@@ -18,9 +18,9 @@ if add_sidebar == "Barchart":
     st.write("Paper Frequency by Year")
     #  barchart of paper frequency by year grouped by category
     chart = alt.Chart(df).mark_bar(opacity=0.7).encode(
-        x='year:O',
-        y=alt.Y('papers:Q', stack=None),
-        color='categories',
+        x='year:T',
+        y='papers:Q',
+        color='categories:N',
     )
     # with tab1:
     st.altair_chart(chart, theme=None, use_container_width=True)
