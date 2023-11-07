@@ -21,7 +21,7 @@ if add_sidebar == "Barchart":
         chart = alt.Chart(df).mark_bar().encode(
             x='year',
             y=alt.Y('papers', stack=None),
-            color='category',
+            color='categories',
         )
         st.altair_chart(chart, use_container_width=True)
     with tab2:
