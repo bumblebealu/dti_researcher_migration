@@ -13,6 +13,7 @@ df["year"] = df["versions"].str[-20:-16]
 add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors"))
 # make a barplot of the year column based on freqeuncy of each year sorted by year
 if add_sidebar == "Barchart":
+    tab1, tab2 = st.tabs(["Streamlit theme (default)", "Altair native theme"])
     with tab1:
         st.write("Paper Frequency by Year")
         #  barchart of paper frequency by year grouped by category
