@@ -15,14 +15,14 @@ add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit
 # make a barplot of the year column based on freqeuncy of each year sorted by year
 if add_sidebar == "Barchart":
     tab1, tab2 = st.tabs(["Streamlit theme (default)", "Altair native theme"])
+    st.write("Paper Frequency by Year")
+    #  barchart of paper frequency by year grouped by category
+    chart = alt.Chart(df).mark_bar().encode(
+        x='year',
+        y=alt.Y('papers:Q', stack=None),
+        color='categories',
+    )
     with tab1:
-        st.write("Paper Frequency by Year")
-        #  barchart of paper frequency by year grouped by category
-        chart = alt.Chart(df).mark_bar().encode(
-            x='year',
-            y=alt.Y('papers:Q', stack=None),
-            color='categories',
-        )
         st.altair_chart(chart, use_container_width=True)
     with tab2:
         st.write("Paper Frequency by Year")
