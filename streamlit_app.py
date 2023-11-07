@@ -1,4 +1,4 @@
-import pandas as pd
+lsimport pandas as pd
 import streamlit as st
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("Arxiv Dashboard")
@@ -13,8 +13,14 @@ df["year"] = df["versions"].str[-20:-16]
 add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors"))
 # make a barplot of the year column based on freqeuncy of each year sorted by year
 if add_sidebar == "Barchart":
-    st.write("Paper Frequency by Year")
-    st.bar_chart(df["year"].value_counts().sort_index())
+    if st.toggle("By Category?"):
+        st.write("Paper Frequency by Category")
+        #  barchart of paper frequency by year grouped by category
+        st.bar_chart(df.groupby("category")["year"].value_counts().unstack().fillna(0))
+    else:
+        st.write("Paper Frequency by Year")
+        st.bar_chart(df["year"].value_counts().sort_index())
+    
 # display the above plot in the streamlit app
 
 
