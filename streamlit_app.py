@@ -105,4 +105,4 @@ if add_sidebar == "Paper Recommender":
     tfidf_vectorizer = TfidfVectorizer(stop_words='english') 
     tfidf_vector = tfidf_vectorizer.fit_transform(df["abstract"])
     output_df = pd.DataFrame(tfidf_vector.toarray(),columns=tfidf_vectorizer.get_feature_names())
-    st.write(output_df)
+    st.write(output_df[0])
