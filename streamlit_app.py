@@ -104,4 +104,4 @@ if add_sidebar == "Paper Recommender":
     power_search = st.text_input("Search Papers by Title")
     tfidf_vectorizer = TfidfVectorizer(stop_words='english') 
     tfidf_vector = tfidf_vectorizer.fit_transform(df["abstract"])
-    print(tfidf_vectorizer.get_feature_names())
+    st.write(tfidf_vectorizer.get_feature_names())
