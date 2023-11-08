@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import altair as alt
+from sklearn.feature_extraction.text import TfidfVectorizer
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("Arxiv Dashboard")
 
@@ -16,11 +17,11 @@ if st.toggle("Paper Search"):
 if st.toggle("Add Filters"):
     search = st.text_input("Must Include")
     df = df[df["title"].str.contains(search,case=False)]
-
+    
 df["year"] = df["versions"].str[-20:-16]
 df["papers"] = 1
 
-add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors","Abstract Lengths"))
+add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors","Abstract Lengths", "Paper Recommender"))
 # make a barplot of the year column based on freqeuncy of each year sorted by year
 if add_sidebar == "Barchart":
     tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
@@ -98,3 +99,9 @@ if add_sidebar == "Abstract Lengths":
     plt.hist(df["abstract_length"],bins = 100)
     st.pyplot()
     #st.write(df["abstract_length"].describe())
+
+if add_sidebar == "Paper Recommender":
+    power_search = st.text_input("Search Papers by Title")
+    tfidf_vectorizer = TfidfVectorizer(stop_words='english') 
+    search_vector = tfidf_vectorizer.fit_transform(power_search)
+    print(search_vector)   
