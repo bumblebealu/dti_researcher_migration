@@ -105,7 +105,7 @@ if add_sidebar == "Paper Recommender":
         trainer= TfidfVectorizer(stop_words='english') 
         trainer.fit(df.iloc[:200,11])
         tester = trainer.transform(df.iloc[:200,11])
-        TFIDF = pd.DataFrame(tester.toarray(), columns=tester.get_feature_names_out())
+        TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
         # search for papers by title
         power_search = st.text_input("Search Papers by Title")
         word_list = power_search.split(" ")
