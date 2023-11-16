@@ -103,8 +103,8 @@ if add_sidebar == "Abstract Lengths":
 if add_sidebar == "Paper Recommender":
     if st.button("FIRE UP THE RECOMMENDER"):
         trainer= TfidfVectorizer(stop_words='english') 
-        trainer.fit(reduced.iloc[:2000,11])
-        tester.transform(reduced.iloc[:2000,11])
+        trainer.fit(df.iloc[:2000,11])
+        tester.transform(df.iloc[:2000,11])
         TFIDF = pd.DataFrame(tester.toarray(), columns=tester.get_feature_names_out())
         # search for papers by title
         power_search = st.text_input("Search Papers by Title")
