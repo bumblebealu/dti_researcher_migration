@@ -101,7 +101,7 @@ if add_sidebar == "Abstract Lengths":
     #st.write(df["abstract_length"].describe())
 
 if add_sidebar == "Paper Recommender":
-    if st.toggle("FIRE UP THE RECOMMENDER"):
+        if st.toggle("FIRE UP THE RECOMMENDER"):
         trainer= TfidfVectorizer(stop_words='english') 
         trainer.fit(df.iloc[:200,11])
         tester = trainer.transform(df.iloc[:200,11])
@@ -109,7 +109,7 @@ if add_sidebar == "Paper Recommender":
         # search for papers by title
         power_search = st.text_input("Search Papers by Title")
         word_list = power_search.split(" ")
-        small_df = TFIDF[list]
+        small_df = TFIDF[word_list]
         matching_index = small_df.sum(axis=1).sort_values(ascending=False).head(10).index[0]
         matching_title = df.iloc[matching_index,4]
         st.write(matching_title)
