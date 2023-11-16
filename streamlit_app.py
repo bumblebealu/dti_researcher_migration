@@ -113,3 +113,4 @@ if add_sidebar == "Paper Recommender":
         matching_index = small_df.sum(axis=1).sort_values(ascending=False).head(10).index[0]
         matching_title = df.iloc[matching_index,4]
         st.write(matching_title)
+        st.write(matching_index)
