@@ -101,7 +101,7 @@ if add_sidebar == "Abstract Lengths":
     #st.write(df["abstract_length"].describe())
 
 if add_sidebar == "Paper Recommender":
-    if st.button("FIRE UP THE RECOMMENDER"):
+    if st.toggle("FIRE UP THE RECOMMENDER"):
         trainer= TfidfVectorizer(stop_words='english') 
         trainer.fit(df.iloc[:200,11])
         tester = trainer.transform(df.iloc[:200,11])
