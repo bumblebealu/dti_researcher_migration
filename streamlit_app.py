@@ -136,4 +136,4 @@ if add_sidebar == "Paper Recommender":
             matching_title = df.iloc[matching_index,4]
             st.write(matching_title)
             st.write(matching_index)
-            #st.write(word_vector)
+            st.write(word_vector)
