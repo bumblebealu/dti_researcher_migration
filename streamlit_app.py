@@ -133,8 +133,9 @@ if add_sidebar == "Paper Recommender":
             cos_sim = cosine_similarity(word_vector, tester)
             # find the index of the paper with the highest cosine similarity
             matching_index = cos_sim.argmax()
+            st.write(matching_index)
             # find the title of the paper with the highest cosine similarity
             matching_title = df.iloc[matching_index,4]
             st.write(matching_title)
-            st.write(matching_index)
+            
             
