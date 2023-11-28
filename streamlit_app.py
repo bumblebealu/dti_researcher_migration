@@ -128,6 +128,7 @@ if add_sidebar == "Paper Recommender":
             power_vector = trainer.transform([power_search])
             word_list = power_search.split(" ")
             word_vector = trainer.transform(word_list)
+            st.write(word_vector)
             # find the cosine similarity between the power search and the first 200 papers
             cos_sim = cosine_similarity(word_vector, tester)
             # find the index of the paper with the highest cosine similarity
@@ -136,4 +137,4 @@ if add_sidebar == "Paper Recommender":
             matching_title = df.iloc[matching_index,4]
             st.write(matching_title)
             st.write(matching_index)
-            st.write(word_vector)
+            
