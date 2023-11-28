@@ -108,9 +108,23 @@ if add_sidebar == "Paper Recommender":
             TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
             # search for papers by title
             power_search = st.text_input("Search Papers by Title")
+            power_vector = trainer.transform([power_search])
             word_list = power_search.split(" ")
             small_df = TFIDF[word_list]
             matching_index = small_df.sum(axis=1).sort_values(ascending=False).head(10).index[0]
             matching_title = df.iloc[matching_index,4]
             st.write(matching_title)
             st.write(matching_index)
+
+        if st.toggle("FIRE UP THE RECOMMENDER 2.0"):
+            trainer= TfidfVectorizer(stop_words='english') 
+            trainer.fit(df.iloc[:200,11])
+            tester = trainer.transform(df.iloc[:200,11])
+
+            TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
+            # search for papers by title
+            power_search = st.text_input("Search Papers by Title")
+            power_vector = trainer.transform([power_search])
+            word_list = power_search.split(" ")
+            word_vector = trainer.fit(word_list)
+            st.write(word_vector)
