@@ -119,8 +119,8 @@ if add_sidebar == "Paper Recommender":
 
         if st.toggle("FIRE UP THE RECOMMENDER 2.0"):
             trainer= TfidfVectorizer(stop_words='english') 
-            trainer.fit(df.iloc[:200,11])
-            tester = trainer.transform(df.iloc[:200,11])
+            trainer.fit(df.iloc[:,11])
+            tester = trainer.transform(df.iloc[:,11])
 
             TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
             # search for papers by title
