@@ -126,5 +126,5 @@ if add_sidebar == "Paper Recommender":
             power_search = st.text_input("Search Papers by Title")
             power_vector = trainer.transform([power_search])
             word_list = power_search.split(" ")
-            word_vector = trainer.fit(word_list)
+            word_vector = trainer.transform(word_list)
             st.write(word_vector)
