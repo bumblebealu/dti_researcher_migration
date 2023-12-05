@@ -4,6 +4,7 @@ import altair as alt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import scipy.sparse
+import pickle
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("Arxiv Dashboard")
 
