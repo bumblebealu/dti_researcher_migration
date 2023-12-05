@@ -3,6 +3,7 @@ import streamlit as st
 import altair as alt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import scipy.sparse
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("Arxiv Dashboard")
 
@@ -120,8 +121,9 @@ if add_sidebar == "Paper Recommender":
         if st.toggle("FIRE UP THE RECOMMENDER 2.0"):
             trainer= TfidfVectorizer(stop_words='english') 
             trainer.fit(df.iloc[:,11]) # need to save trainer as a pickle file
-            tester = trainer.transform(df.iloc[:,11])# transformed papers #save as scipy sparsecsr matrix
-            
+            temp = trainer.transform(df.iloc[:,11])# transformed papers #save as scipy sparsecsr matrix
+            sparse.save_npz("tester.npz", temp)
+            tester = sparse.load_npz("tester.npz")
             #TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
             # search for papers by title
             power_search = st.text_input("Search Papers by Title")
