@@ -119,18 +119,18 @@ if add_sidebar == "Paper Recommender":
 
         if st.toggle("FIRE UP THE RECOMMENDER 2.0"):
             trainer= TfidfVectorizer(stop_words='english') 
-            trainer.fit(df.iloc[:,11])
-            tester = trainer.transform(df.iloc[:,11])
-
+            trainer.fit(df.iloc[:,11]) # need to save trainer as a pickle file
+            tester = trainer.transform(df.iloc[:,11])# transformed papers #save as scipy sparsecsr matrix
+            
             #TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
             # search for papers by title
             power_search = st.text_input("Search Papers by Title")
             power_vector = trainer.transform([power_search])
-            word_list = power_search.split(" ")
-            word_vector = trainer.transform(word_list)
-            st.write(word_vector)
+            # word_list = power_search.split(" ") 
+            # word_vector = trainer.transform(word_list) 
+            # st.write(word_vector)
             # find the cosine similarity between the power search and the first 200 papers
-            cos_sim = cosine_similarity(word_vector, tester)
+            cos_sim = cosine_similarity(power_vector, tester)
             # find the index of the paper with the highest cosine similarity
             matching_index = cos_sim.argmax()
             st.write(matching_index)
