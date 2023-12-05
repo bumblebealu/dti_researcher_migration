@@ -123,8 +123,8 @@ if add_sidebar == "Paper Recommender":
                 trainer= TfidfVectorizer(stop_words='english') 
                 trainer.fit(df.iloc[:,11]) # need to save trainer as a pickle file
                 temp = trainer.transform(df.iloc[:,11])# transformed papers #save as scipy sparsecsr matrix
-                scipy.sparse.save_npz("tester.npz", temp)
-            tester = scipy.sparse.load_npz("tester.npz")
+                scipy.sparse.save_npz("/tmp/tester.npz", temp)
+            tester = scipy.sparse.load_npz("/tmp/tester.npz")
             #TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
             # search for papers by title
             power_search = st.text_input("Search Papers by Title")
