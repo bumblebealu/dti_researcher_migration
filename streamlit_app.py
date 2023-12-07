@@ -146,7 +146,7 @@ if add_sidebar == "Paper Recommender":
             
             # reverse the order of top_ten
             top_ten = top_ten[::-1]
-            top_sim = cos_sim[1][top_ten]
+            top_sim = cos_sim[0][top_ten]
             st.write(top_ten)
             # st.write(matching_index)
             # st.write(top_ten)
