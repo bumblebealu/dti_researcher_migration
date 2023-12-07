@@ -143,6 +143,8 @@ if add_sidebar == "Paper Recommender":
             matching_index = cos_sim.argmax()
             # find the indexis of the top 10 papers with the highest cosine similarity
             top_ten = cos_sim.argsort()[0][-10:]
+            # reverse the order of top_ten
+            top_ten = top_ten[::-1]
 
             # st.write(matching_index)
             # st.write(top_ten)
