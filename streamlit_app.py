@@ -143,8 +143,10 @@ if add_sidebar == "Paper Recommender":
             matching_index = cos_sim.argmax()
             # find the indexis of the top 10 papers with the highest cosine similarity
             top_ten = cos_sim.argsort()[0][-10:]
+            
             # reverse the order of top_ten
             top_ten = top_ten[::-1]
+            top_sim = cos_sim[0][top_ten]
 
             # st.write(matching_index)
             # st.write(top_ten)
@@ -152,6 +154,8 @@ if add_sidebar == "Paper Recommender":
             # find the title of the paper with the highest cosine similarity
             matching_title = df.iloc[matching_index,4]
             top_ten_titles = df.iloc[top_ten,4]
+            # change the index of top_ten_titles to the similarity scores
+            top_ten_titles.index = top_sim
             st.write(matching_title)
             st.write(top_ten_titles)
             
