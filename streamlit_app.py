@@ -1,4 +1,4 @@
-codimport pandas as pd
+import pandas as pd
 import streamlit as st
 import altair as alt
 from sklearn.feature_extraction.text import TfidfVectorizer
