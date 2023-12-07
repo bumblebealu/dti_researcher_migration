@@ -1,4 +1,4 @@
-import pandas as pd
+codimport pandas as pd
 import streamlit as st
 import altair as alt
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -141,7 +141,11 @@ if add_sidebar == "Paper Recommender":
             cos_sim = cosine_similarity(power_vector, tester)
             # find the index of the paper with the highest cosine similarity
             matching_index = cos_sim.argmax()
+            # find the indexis of the top 10 papers with the highest cosine similarity
+            top_ten = cos_sim.argsort()[0][-10:]
+
             st.write(matching_index)
+            st.write(top_ten)
             st.write(len(df))
             # find the title of the paper with the highest cosine similarity
             matching_title = df.iloc[matching_index,4]
