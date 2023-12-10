@@ -140,7 +140,8 @@ if add_sidebar == "Paper Recommender":
             matching_title = df.iloc[matching_index,4]
             top_ten_titles = df.iloc[top_ten,4]
             # change the index of top_ten_titles to the similarity scores
-            top_ten_titles["Similarity"] = top_sim
+            top_ten_titles.index = top_sim
+            top_ten_titles.index.name = "Similarity Score"
             st.write(matching_title)
             st.write(top_ten_titles)
             
