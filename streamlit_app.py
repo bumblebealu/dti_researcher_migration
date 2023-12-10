@@ -114,6 +114,13 @@ if add_sidebar == "Paper Recommender":
             y='papers',
             color='categories:N',
             )
+            with tab1:
+                st.write("Paper Frequency by Year")
+                st.bar_chart(df["year"].value_counts().sort_index())
+            with tab2:
+                st.write("Paper Frequncy by Year")
+                st.altair_chart(chart, theme=None, use_container_width=True)
+    
         with col2: 
             st.write("Place Holder")
         # if st.button("Train Model"):
