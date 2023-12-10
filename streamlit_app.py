@@ -114,7 +114,6 @@ if add_sidebar == "Paper Recommender":
             y='papers',
             color='categories:N',
             st.write("Paper Frequncy by Year")
-            st.altair_chart(chart, theme=None, use_container_width=True)
             fig = px.line(x = df["year"], y = df.groupby(["year"]).value_counts(), color =[df["categories"]])
             fig.update_layout(
             xaxis_title="Year",
