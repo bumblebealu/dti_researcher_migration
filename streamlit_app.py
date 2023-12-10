@@ -5,6 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import scipy.sparse
 import pickle
+import plotly.express as px
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("Arxiv Dashboard")
 
@@ -109,17 +110,20 @@ if add_sidebar == "Paper Recommender":
         with col1:
             tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
             #  barchart of paper frequency by year grouped by category
-            chart = alt.Chart(df).mark_bar(opacity=0.7).encode(
             x='year:T',
             y='papers',
             color='categories:N',
+            st.write("Paper Frequncy by Year")
+            st.altair_chart(chart, theme=None, use_container_width=True)
+            fig = px.line(x = df["year"], y = df.groupby(["year"]).value_counts(), color =[df["categories"]])
+            fig.update_layout(
+            xaxis_title="Year",
+            yaxis_title="Proportion",
+            legend_title="Dietary Concern",
             )
-            with tab1:
-                st.write("Paper Frequency by Year")
-                st.bar_chart(df["year"].value_counts().sort_index())
-            with tab2:
-                st.write("Paper Frequncy by Year")
-                st.altair_chart(chart, theme=None, use_container_width=True)
+            tab1.plotly_chart(fig)
+            tab2.plotly_chart(fig)
+            
     
         with col2: 
             st.write("Place Holder")
