@@ -104,6 +104,18 @@ if add_sidebar == "Abstract Lengths":
     #st.write(df["abstract_length"].describe())
 
 if add_sidebar == "Paper Recommender":
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
+            #  barchart of paper frequency by year grouped by category
+            chart = alt.Chart(df).mark_bar(opacity=0.7).encode(
+            x='year:T',
+            y='papers',
+            color='categories:N',
+            )
+        with col2: 
+            st.write("Place Holder")
         # if st.button("Train Model"):
         #     trainer= TfidfVectorizer(stop_words='english') 
         #     trainer.fit(df.iloc[:,11]) # need to save trainer as a pickle file
