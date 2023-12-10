@@ -10,16 +10,16 @@ st.title("Arxiv Dashboard")
 
 
 df = pd.read_csv("reduced.csv")
-if st.toggle("Paper Search"):
-    st.write("Search Papers")
-    # search for papers by title
-    search = st.text_input("Search Papers by Title")
-    # display the papers that match the search
-    st.write(df[df["title"].str.contains(search,case=False)].head(20))
+# if st.toggle("Paper Search"):
+#     st.write("Search Papers")
+#     # search for papers by title
+#     search = st.text_input("Search Papers by Title")
+#     # display the papers that match the search
+#     st.write(df[df["title"].str.contains(search,case=False)].head(20))
 
-if st.toggle("Add Filters"):
-    search = st.text_input("Must Include")
-    df = df[df["title"].str.contains(search,case=False)]
+# if st.toggle("Add Filters"):
+#     search = st.text_input("Must Include")
+#     df = df[df["title"].str.contains(search,case=False)]
     
 df["year"] = df["versions"].str[-20:-16]
 df["papers"] = 1
@@ -104,45 +104,45 @@ if add_sidebar == "Abstract Lengths":
     #st.write(df["abstract_length"].describe())
 
 if add_sidebar == "Paper Recommender":
-        if st.toggle("FIRE UP THE RECOMMENDER 2.0"):
-            # if st.button("Train Model"):
-            #     trainer= TfidfVectorizer(stop_words='english') 
-            #     trainer.fit(df.iloc[:,11]) # need to save trainer as a pickle file
-            #     temp = trainer.transform(df.iloc[:,11])# transformed papers #save as scipy sparsecsr matrix
-            #     scipy.sparse.save_npz("/tmp/tester.npz", temp)
-            tester = scipy.sparse.load_npz("tester.npz")
-            #TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
-            # search for papers by title
-            fileObj = open('data.obj', 'rb')
-            trainer = pickle.load(fileObj)
-            fileObj.close()
+        # if st.button("Train Model"):
+        #     trainer= TfidfVectorizer(stop_words='english') 
+        #     trainer.fit(df.iloc[:,11]) # need to save trainer as a pickle file
+        #     temp = trainer.transform(df.iloc[:,11])# transformed papers #save as scipy sparsecsr matrix
+        #     scipy.sparse.save_npz("/tmp/tester.npz", temp)
+        tester = scipy.sparse.load_npz("tester.npz")
+        #TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
+        # search for papers by title
+        fileObj = open('data.obj', 'rb')
+        trainer = pickle.load(fileObj)
+        fileObj.close()
 
-            power_search = st.text_input("Search Papers by Title")
-            power_vector = trainer.transform([power_search])
-            # word_list = power_search.split(" ") 
-            # word_vector = trainer.transform(word_list) 
-            # st.write(word_vector)
-            # find the cosine similarity between the power search and the first 200 papers
-            cos_sim = cosine_similarity(power_vector, tester)
-            # find the index of the paper with the highest cosine similarity
-            matching_index = cos_sim.argmax()
-            # find the indexis of the top 10 papers with the highest cosine similarity
-            top_ten = cos_sim.argsort()[0][-10:]
-            
-            # reverse the order of top_ten
-            top_ten = top_ten[::-1]
-            top_sim = cos_sim[0][top_ten]
-            st.write(top_ten)
-            # st.write(matching_index)
-            # st.write(top_ten)
-            # st.write(len(df))
-            # find the title of the paper with the highest cosine similarity
-            matching_title = df.iloc[matching_index,4]
-            top_ten_titles = df.iloc[top_ten,4]
-            # change the index of top_ten_titles to the similarity scores
-            top_ten_titles.index = top_sim
-            top_ten_titles.index.name = "Similarity Score"
-            st.write(matching_title)
-            st.write(top_ten_titles)
-            
+        power_search = st.text_input("Search Papers by Title")
+        power_vector = trainer.transform([power_search])
+        # word_list = power_search.split(" ") 
+        # word_vector = trainer.transform(word_list) 
+        # st.write(word_vector)
+        # find the cosine similarity between the power search and the first 200 papers
+        cos_sim = cosine_similarity(power_vector, tester)
+        # find the index of the paper with the highest cosine similarity
+        matching_index = cos_sim.argmax()
+        # find the indexis of the top 10 papers with the highest cosine similarity
+        top_ten = cos_sim.argsort()[0][-10:]
+        
+        # reverse the order of top_ten
+        top_ten = top_ten[::-1]
+        top_sim = cos_sim[0][top_ten]
+        #st.write(top_ten)
+        # st.write(matching_index)
+        # st.write(top_ten)
+        # st.write(len(df))
+        # find the title of the paper with the highest cosine similarity
+        matching_title = df.iloc[matching_index,4]
+        top_ten_titles = df.iloc[top_ten,4]
+        # change the index of top_ten_titles to the similarity scores
+        top_ten_titles.index = top_sim
+        top_ten_titles.index.name = "Similarity Score"
+        #st.write(matching_title)
+        st.write("Top Ten Results")
+        st.write(top_ten_titles)
+        
             
