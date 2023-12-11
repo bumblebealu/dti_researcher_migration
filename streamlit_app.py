@@ -105,7 +105,7 @@ popt, pcov = curve_fit(func, papers_per_year.index[:-2], papers_per_year[:-2])
 #     #st.write(df["abstract_length"].describe())
 
 # if add_sidebar == "Paper Recommender":
-        #  barchart of paper frequency by year grouped by category
+#  barchart of paper frequency by year grouped by category
 x = df.groupby("year").size().index
 y = df.groupby(["year"]).size().values
 x2 = df.groupby(["year","categories"]).size().index.get_level_values(0)
