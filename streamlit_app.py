@@ -110,11 +110,12 @@ if add_sidebar == "Paper Recommender":
         with col1:
             tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
             #  barchart of paper frequency by year grouped by category
-            x='year:T',
-            y='papers',
+            x = df.groupby(["year"]).value_counts().index
+            y = df.groupby(["year"]).value_counts()
             color='categories:N',
             st.write("Paper Frequncy by Year")
-            fig = px.line(x = df.groupby(["year"]).value_counts().index, y = df.groupby(["year"]).value_counts(), color =[df["categories"]])
+            st.write(y)
+            fig = px.line(x = x, y = y, color =[df["categories"]])
             fig.update_layout(
             xaxis_title="Year",
             yaxis_title="Proportion",
