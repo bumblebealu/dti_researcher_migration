@@ -105,7 +105,6 @@ if add_sidebar == "Abstract Lengths":
     #st.write(df["abstract_length"].describe())
 
 if add_sidebar == "Paper Recommender":
-        tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
         #  barchart of paper frequency by year grouped by category
         x = df.groupby("year").size().index
         y = df.groupby(["year"]).size().values
@@ -113,6 +112,7 @@ if add_sidebar == "Paper Recommender":
         y2 = df.groupby(["year","categories"]).size().values
         z2 = df.groupby(["year","categories"]).size().index.get_level_values(1)
         st.write("Paper Frequncy by Year")
+        st.write("Doubling Time is "+ str(1/popt[0]) + "years")
         fig = px.line(x = x, y = y)
         fig.update_layout(
             xaxis_title="Year",
@@ -126,6 +126,7 @@ if add_sidebar == "Paper Recommender":
             legend=dict(font=dict(size = 1)),
             #showlegend=False
         )
+        tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
         tab1.plotly_chart(fig)
         tab2.plotly_chart(fig2)
         
