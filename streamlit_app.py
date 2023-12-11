@@ -119,12 +119,12 @@ if add_sidebar == "Paper Recommender":
             yaxis_title="Papers", 
         )
         fig2 = px.line(x = x2, y = y2, color = z2)
-        fig.update_layout(
+        fig2.update_layout(
             xaxis_title="Year",
             yaxis_title="Papers",
             legend_title="Categories",
             legend=dict(font=dict(size = 1)),
-            showlegend=False
+            #showlegend=False
         )
         tab1.plotly_chart(fig)
         tab2.plotly_chart(fig2)
