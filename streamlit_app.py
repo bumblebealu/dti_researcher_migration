@@ -112,7 +112,7 @@ if add_sidebar == "Paper Recommender":
             #  barchart of paper frequency by year grouped by category
             x = df.groupby("year").size().index
             y = df.groupby(["year"]).size().values
-            x2 = df.groupby(["year","categories"]).size().index
+            x2 = df.groupby(["year","categories"]).size().index.get_level_values(0)
             y2 = df.groupby(["year","categories"]).size().values
             z2 = df.groupby(["year","categories"]).size().index.get_level_values(1)
             st.write("Paper Frequncy by Year")
