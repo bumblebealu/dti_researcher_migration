@@ -122,7 +122,7 @@ if add_sidebar == "Paper Recommender":
                 xaxis_title="Year",
                 yaxis_title="Papers", 
             )
-            fig = px.line(x = x, y = y, color = z2)
+            fig = px.line(x = x2, y = y2, color = z2)
             fig.update_layout(
                 xaxis_title="Year",
                 yaxis_title="Papers",
