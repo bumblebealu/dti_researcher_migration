@@ -114,9 +114,10 @@ if add_sidebar == "Paper Recommender":
             y = df.groupby(["year"]).size().values
             x2 = df.groupby(["year","categories"]).size().index
             y2 = df.groupby(["year","categories"]).size().values
+            z2 = df.groupby(["year","categories"]).size().index.get_level_values(1)
             color='categories:N',
             st.write("Paper Frequncy by Year")
-            st.write(y2)
+            st.write(z2)
             fig = px.line(x = x, y = y)
             fig.update_layout(
                 xaxis_title="Year",
