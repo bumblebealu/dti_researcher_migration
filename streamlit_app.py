@@ -106,69 +106,69 @@ popt, pcov = curve_fit(func, papers_per_year.index[:-2], papers_per_year[:-2])
 
 # if add_sidebar == "Paper Recommender":
         #  barchart of paper frequency by year grouped by category
-        x = df.groupby("year").size().index
-        y = df.groupby(["year"]).size().values
-        x2 = df.groupby(["year","categories"]).size().index.get_level_values(0)
-        y2 = df.groupby(["year","categories"]).size().values
-        z2 = df.groupby(["year","categories"]).size().index.get_level_values(1)
-        st.write("Paper Frequncy by Year")
-        st.write("Doubling Time is "+ str(1/popt[0])[:4] + "years")
-        fig = px.line(x = x, y = y)
-        fig.update_layout(
-            xaxis_title="Year",
-            yaxis_title="Papers", 
-        )
-        fig2 = px.line(x = x2, y = y2, color = z2)
-        fig2.update_layout(
-            xaxis_title="Year",
-            yaxis_title="Papers",
-            legend_title="Categories",
-            legend=dict(font=dict(size = 1)),
-            #showlegend=False
-        )
-        tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
-        tab1.plotly_chart(fig)
-        tab2.plotly_chart(fig2)
-        
-        # if st.button("Train Model"):
-        #     trainer= TfidfVectorizer(stop_words='english') 
-        #     trainer.fit(df.iloc[:,11]) # need to save trainer as a pickle file
-        #     temp = trainer.transform(df.iloc[:,11])# transformed papers #save as scipy sparsecsr matrix
-        #     scipy.sparse.save_npz("/tmp/tester.npz", temp)
-        tester = scipy.sparse.load_npz("tester.npz")
-        #TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
-        # search for papers by title
-        fileObj = open('data.obj', 'rb')
-        trainer = pickle.load(fileObj)
-        fileObj.close()
+x = df.groupby("year").size().index
+y = df.groupby(["year"]).size().values
+x2 = df.groupby(["year","categories"]).size().index.get_level_values(0)
+y2 = df.groupby(["year","categories"]).size().values
+z2 = df.groupby(["year","categories"]).size().index.get_level_values(1)
+st.write("Paper Frequncy by Year")
+st.write("Doubling Time is "+ str(1/popt[0])[:4] + "years")
+fig = px.line(x = x, y = y)
+fig.update_layout(
+    xaxis_title="Year",
+    yaxis_title="Papers", 
+)
+fig2 = px.line(x = x2, y = y2, color = z2)
+fig2.update_layout(
+    xaxis_title="Year",
+    yaxis_title="Papers",
+    legend_title="Categories",
+    legend=dict(font=dict(size = 1)),
+    #showlegend=False
+)
+tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
+tab1.plotly_chart(fig)
+tab2.plotly_chart(fig2)
 
-        power_search = st.text_input("Search Papers by Title")
-        power_vector = trainer.transform([power_search])
-        # word_list = power_search.split(" ") 
-        # word_vector = trainer.transform(word_list) 
-        # st.write(word_vector)
-        # find the cosine similarity between the power search and the first 200 papers
-        cos_sim = cosine_similarity(power_vector, tester)
-        # find the index of the paper with the highest cosine similarity
-        matching_index = cos_sim.argmax()
-        # find the indexis of the top 10 papers with the highest cosine similarity
-        top_ten = cos_sim.argsort()[0][-10:]
-        
-        # reverse the order of top_ten
-        top_ten = top_ten[::-1]
-        top_sim = cos_sim[0][top_ten]
-        #st.write(top_ten)
-        # st.write(matching_index)
-        # st.write(top_ten)
-        # st.write(len(df))
-        # find the title of the paper with the highest cosine similarity
-        matching_title = df.iloc[matching_index,4]
-        top_ten_titles = df.iloc[top_ten,4]
-        # change the index of top_ten_titles to the similarity scores
-        top_ten_titles.index = top_sim
-        top_ten_titles.index.name = "Similarity Score"
-        #st.write(matching_title)
-        st.write("Top Ten Results")
-        st.write(top_ten_titles)
-        
-            
+# if st.button("Train Model"):
+#     trainer= TfidfVectorizer(stop_words='english') 
+#     trainer.fit(df.iloc[:,11]) # need to save trainer as a pickle file
+#     temp = trainer.transform(df.iloc[:,11])# transformed papers #save as scipy sparsecsr matrix
+#     scipy.sparse.save_npz("/tmp/tester.npz", temp)
+tester = scipy.sparse.load_npz("tester.npz")
+#TFIDF = pd.DataFrame(tester.toarray(), columns=trainer.get_feature_names_out())
+# search for papers by title
+fileObj = open('data.obj', 'rb')
+trainer = pickle.load(fileObj)
+fileObj.close()
+
+power_search = st.text_input("Search Papers by Title")
+power_vector = trainer.transform([power_search])
+# word_list = power_search.split(" ") 
+# word_vector = trainer.transform(word_list) 
+# st.write(word_vector)
+# find the cosine similarity between the power search and the first 200 papers
+cos_sim = cosine_similarity(power_vector, tester)
+# find the index of the paper with the highest cosine similarity
+matching_index = cos_sim.argmax()
+# find the indexis of the top 10 papers with the highest cosine similarity
+top_ten = cos_sim.argsort()[0][-10:]
+
+# reverse the order of top_ten
+top_ten = top_ten[::-1]
+top_sim = cos_sim[0][top_ten]
+#st.write(top_ten)
+# st.write(matching_index)
+# st.write(top_ten)
+# st.write(len(df))
+# find the title of the paper with the highest cosine similarity
+matching_title = df.iloc[matching_index,4]
+top_ten_titles = df.iloc[top_ten,4]
+# change the index of top_ten_titles to the similarity scores
+top_ten_titles.index = top_sim
+top_ten_titles.index.name = "Similarity Score"
+#st.write(matching_title)
+st.write("Top Ten Results")
+st.write(top_ten_titles)
+
+    
