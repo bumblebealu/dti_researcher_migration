@@ -25,22 +25,22 @@ df = pd.read_csv("reduced.csv")
 df["year"] = df["versions"].str[-20:-16]
 df["papers"] = 1
 
-add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors","Abstract Lengths", "Paper Recommender"))
+# add_sidebar = st.sidebar.selectbox("Select Display",("Barchart","Exponential Fit","Top Authors","Abstract Lengths", "Paper Recommender"))
 # make a barplot of the year column based on freqeuncy of each year sorted by year
-if add_sidebar == "Barchart":
-    tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
-    #  barchart of paper frequency by year grouped by category
-    chart = alt.Chart(df).mark_bar(opacity=0.7).encode(
-        x='year:T',
-        y='papers',
-        color='categories:N',
-    )
-    with tab1:
-        st.write("Paper Frequency by Year")
-        st.bar_chart(df["year"].value_counts().sort_index())
-    with tab2:
-        st.write("Paper Frequncy by Year")
-        st.altair_chart(chart, theme=None, use_container_width=True)
+# if add_sidebar == "Barchart":
+#     tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
+#     #  barchart of paper frequency by year grouped by category
+#     chart = alt.Chart(df).mark_bar(opacity=0.7).encode(
+#         x='year:T',
+#         y='papers',
+#         color='categories:N',
+#     )
+#     with tab1:
+#         st.write("Paper Frequency by Year")
+#         st.bar_chart(df["year"].value_counts().sort_index())
+#     with tab2:
+#         st.write("Paper Frequncy by Year")
+#         st.altair_chart(chart, theme=None, use_container_width=True)
     
     
 # display the above plot in the streamlit app
@@ -65,46 +65,46 @@ papers_per_year.index = papers_per_year.index.astype(int)
 
 popt, pcov = curve_fit(func, papers_per_year.index[:-2], papers_per_year[:-2])
 
-if add_sidebar == "Exponential Fit":
-    st.write("Doubling Time")
-    # plot papers per year and the fitted function
-    plt.scatter(papers_per_year.index[:-2], papers_per_year[:-2], label="y = b*2^(a(x-1992))"+"\na = " + str(popt[0]) + "\nb = " + str(popt[1]))
-    plt.plot(papers_per_year.index[:-2], func(papers_per_year.index[:-2], *popt), 'r-', label='Fit')
-    plt.scatter(papers_per_year.index[:-2],papers_per_year[:-2],color = "b", label = "Data")
-    # add text to the legend of the graph
+# if add_sidebar == "Exponential Fit":
+#     st.write("Doubling Time")
+#     # plot papers per year and the fitted function
+#     plt.scatter(papers_per_year.index[:-2], papers_per_year[:-2], label="y = b*2^(a(x-1992))"+"\na = " + str(popt[0]) + "\nb = " + str(popt[1]))
+#     plt.plot(papers_per_year.index[:-2], func(papers_per_year.index[:-2], *popt), 'r-', label='Fit')
+#     plt.scatter(papers_per_year.index[:-2],papers_per_year[:-2],color = "b", label = "Data")
+#     # add text to the legend of the graph
     
-    print("y = b*2^(a(x-1992))")
-    print("a = " + str(popt[0]))
-    print("b = " + str(popt[1]))
+#     print("y = b*2^(a(x-1992))")
+#     print("a = " + str(popt[0]))
+#     print("b = " + str(popt[1]))
     
-    # add appropriate labels
-    plt.xlabel('Year')
-    plt.ylabel("Number of Papers Per Year")
-    plt.title("Doubling Time is "+ str(1/popt[0]) + "years")
-    # html figure
-    plt.legend()
-    st.pyplot()
-    #plt.savefig('doubling.png')
+#     # add appropriate labels
+#     plt.xlabel('Year')
+#     plt.ylabel("Number of Papers Per Year")
+#     plt.title("Doubling Time is "+ str(1/popt[0]) + "years")
+#     # html figure
+#     plt.legend()
+#     st.pyplot()
+#     #plt.savefig('doubling.png')
 
-if add_sidebar == "Top Authors":
-    st.write("Top Authors")
-    top_authors = df["submitter"].value_counts().sort_values(ascending=False).head(20)
-    # sort top_authors by number of papers submitted
-    top_authors_index = sorted(top_authors)
-    # st.write(top_authors)
+# if add_sidebar == "Top Authors":
+#     st.write("Top Authors")
+#     top_authors = df["submitter"].value_counts().sort_values(ascending=False).head(20)
+#     # sort top_authors by number of papers submitted
+#     top_authors_index = sorted(top_authors)
+#     # st.write(top_authors)
     
-    st.bar_chart(top_authors)
+#     st.bar_chart(top_authors)
 
-if add_sidebar == "Abstract Lengths":
-    # get the length of each abstract
-    df["abstract_length"] = df["abstract"].str.len()
-    # plot the distribution of abstract lengths
-    st.write("Distribution of Abstract Lengths")
-    plt.hist(df["abstract_length"],bins = 100)
-    st.pyplot()
-    #st.write(df["abstract_length"].describe())
+# if add_sidebar == "Abstract Lengths":
+#     # get the length of each abstract
+#     df["abstract_length"] = df["abstract"].str.len()
+#     # plot the distribution of abstract lengths
+#     st.write("Distribution of Abstract Lengths")
+#     plt.hist(df["abstract_length"],bins = 100)
+#     st.pyplot()
+#     #st.write(df["abstract_length"].describe())
 
-if add_sidebar == "Paper Recommender":
+# if add_sidebar == "Paper Recommender":
         #  barchart of paper frequency by year grouped by category
         x = df.groupby("year").size().index
         y = df.groupby(["year"]).size().values
@@ -112,7 +112,7 @@ if add_sidebar == "Paper Recommender":
         y2 = df.groupby(["year","categories"]).size().values
         z2 = df.groupby(["year","categories"]).size().index.get_level_values(1)
         st.write("Paper Frequncy by Year")
-        st.write("Doubling Time is "+ str(1/popt[0]) + "years")
+        st.write("Doubling Time is "+ str(1/popt[0])[:4] + "years")
         fig = px.line(x = x, y = y)
         fig.update_layout(
             xaxis_title="Year",
