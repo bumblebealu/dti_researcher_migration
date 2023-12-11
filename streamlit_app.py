@@ -123,6 +123,7 @@ if add_sidebar == "Paper Recommender":
             xaxis_title="Year",
             yaxis_title="Papers",
             legend_title="Categories",
+            legend=dict(font=dict(size= 20))
         )
         tab1.plotly_chart(fig)
         tab2.plotly_chart(fig2)
