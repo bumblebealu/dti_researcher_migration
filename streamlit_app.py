@@ -105,40 +105,29 @@ if add_sidebar == "Abstract Lengths":
     #st.write(df["abstract_length"].describe())
 
 if add_sidebar == "Paper Recommender":
+        tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
+        #  barchart of paper frequency by year grouped by category
+        x = df.groupby("year").size().index
+        y = df.groupby(["year"]).size().values
+        x2 = df.groupby(["year","categories"]).size().index.get_level_values(0)
+        y2 = df.groupby(["year","categories"]).size().values
+        z2 = df.groupby(["year","categories"]).size().index.get_level_values(1)
+        st.write("Paper Frequncy by Year")
+        st.write(z2)
+        fig = px.line(x = x, y = y)
+        fig.update_layout(
+            xaxis_title="Year",
+            yaxis_title="Papers", 
+        )
+        fig2 = px.line(x = x2, y = y2, color = z2)
+        fig.update_layout(
+            xaxis_title="Year",
+            yaxis_title="Papers",
+            legend_title="Categories",
+        )
+        tab1.plotly_chart(fig)
+        tab2.plotly_chart(fig2)
         
-        col1, col2 = st.columns(2)
-        with col1:
-            tab1, tab2 = st.tabs(["Default", "Grouped By Category"])
-            #  barchart of paper frequency by year grouped by category
-            x = df.groupby("year").size().index
-            y = df.groupby(["year"]).size().values
-            x2 = df.groupby(["year","categories"]).size().index.get_level_values(0)
-            y2 = df.groupby(["year","categories"]).size().values
-            z2 = df.groupby(["year","categories"]).size().index.get_level_values(1)
-            st.write("Paper Frequncy by Year")
-            st.write(z2)
-            fig = px.line(x = x, y = y)
-            fig.update_layout(
-                xaxis_title="Year",
-                yaxis_title="Papers", 
-            )
-            fig = px.line(x = x2, y = y2, color = z2)
-            fig.update_layout(
-                xaxis_title="Year",
-                yaxis_title="Papers",
-                legend_title="Categories",
-            )
-            tab1.plotly_chart(fig)
-            tab2.plotly_chart(fig2)
-            
-    
-        with col2: 
-            st.write("Place Holder")
-            # linear plot from 0 to 10 in streamlit
-            x = np.linspace(0, 10, 100)
-            # plot y = x^2 
-            plt.plot(x, x**2)
-
         # if st.button("Train Model"):
         #     trainer= TfidfVectorizer(stop_words='english') 
         #     trainer.fit(df.iloc[:,11]) # need to save trainer as a pickle file
